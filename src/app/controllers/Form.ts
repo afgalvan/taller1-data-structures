@@ -2,20 +2,20 @@ import { Horse } from '../models/Horse';
 import { Race } from '../models/Race';
 
 class Form {
-  horseList: Array<Horse>;
-  raceList: Array<Race>;
-  horseLog?: HTMLFormElement;
-  raceLog?: HTMLFormElement;
-  raceId?: HTMLInputElement;
-  limit: number;
+  private horseList: Array<Horse>;
+  private raceList: Array<Race>;
+  private horseForm?: HTMLFormElement;
+  private raceForm?: HTMLFormElement;
+  private raceId?: HTMLInputElement;
+  private limit: number;
 
   constructor() {
     this.horseList = new Array<Horse>(10);
     this.raceList = new Array<Race>(10);
-    this.horseLog =
-      <HTMLFormElement>document.getElementById('horseLog') || undefined;
-    this.raceLog =
-      <HTMLFormElement>document.getElementById('raceLog') || undefined;
+    this.horseForm =
+      <HTMLFormElement>document.getElementById('horseForm') || undefined;
+    this.raceForm =
+      <HTMLFormElement>document.getElementById('raceForm') || undefined;
     this.raceId =
       <HTMLInputElement>document.getElementById('raceId') || undefined;
     this.limit = 10;
@@ -23,42 +23,29 @@ class Form {
 
   start = (): void => {
     let i = 0;
-    this.horseLog?.addEventListener('submit', (e: Event) => {
+    this.horseForm?.addEventListener('submit', (e: Event) => {
       e.preventDefault();
       if (!this.wasHorseAdded(i)) return;
 
       if (i++ > this.limit) {
         alert('No se pueden registrar más caballos');
       } else {
-        this.horseLog?.reset();
+        this.horseForm?.reset();
       }
     });
 
     let j = 0;
-    this.raceLog?.addEventListener('submit', (e: Event) => {
+    this.raceForm?.addEventListener('submit', (e: Event) => {
       e.preventDefault();
       this.addRace(j);
       if (j++ > this.limit) {
         alert('No se pueden registrar más carreras');
       } else {
-        this.raceLog?.reset();
+        this.raceForm?.reset();
         this.raceId &&
           (this.raceId.value = j >= this.limit ? 'Límite' : (j + 1).toString());
       }
     });
-  };
-
-  isUnique = (name: string): boolean => {
-    for (let i = 0; i < this.horseList.length; i++) {
-      if (this.horseList[i] == null) {
-        return true;
-      }
-      if (name === this.horseList[i].name) {
-        return false;
-      }
-    }
-
-    return true;
   };
 
   wasHorseAdded = (i: number): boolean => {
@@ -71,18 +58,18 @@ class Form {
 
     // Create new Horse object and add it to the list.
     const horse = new Horse();
-    horse.name = name;
-    horse.weight = parseFloat(
+    horse.setName(name);
+    horse.setWeight(parseFloat(
       (<HTMLInputElement>document.getElementById('horseWeight'))?.value,
-    );
-    horse.age = parseInt(
+    ));
+    horse.setAge(parseInt(
       (<HTMLInputElement>document.getElementById('horseAge'))?.value,
-    );
-    horse.breed = (<HTMLInputElement>(
+    ));
+    horse.setBreed((<HTMLInputElement>(
       document.getElementById('horseBreed')
-    ))?.value;
+    ))?.value);
     // console.log(horse);
-    if (!this.horseList[i - 1] || horse.age >= this.horseList[i - 1].age) {
+    if (!this.horseList[i - 1] || horse.getAge() >= this.horseList[i - 1].getAge()) {
       this.horseList[i] = horse;
     } else {
       [this.horseList[i], this.horseList[i - 1]] = [
@@ -95,7 +82,7 @@ class Form {
     const nameList = document.getElementById('nameList');
     const horseName = document.createElement('option');
     horseName.value = i.toString();
-    horseName.innerHTML = horse.name;
+    horseName.innerHTML = horse.getName();
     nameList?.appendChild(horseName);
     console.log(this.horseList);
 
@@ -104,25 +91,40 @@ class Form {
 
   addRace = (i: number): void => {
     const race = new Race();
-    race.id = parseInt(
+    race.setId(parseInt(
       (<HTMLInputElement>document.getElementById('raceId'))?.value,
-    );
-    race.jockeyName = (<HTMLInputElement>(
+    ));
+    race.setJockeyName((<HTMLInputElement>(
       document.getElementById('jockeyName')
-    ))?.value;
+    ))?.value);
     const horse = this.horseList.find(
       () => <HTMLInputElement>document.getElementById('nameList'),
     );
-    race.horse = horse;
-    race.distance = parseFloat(
+    race.setHorse(horse || new Horse());
+    race.setDistance(parseFloat(
       (<HTMLInputElement>document.getElementById('distance'))?.value,
-    );
-    race.time = parseFloat(
+    ));
+    race.setTime(parseFloat(
       (<HTMLInputElement>document.getElementById('time'))?.value,
-    );
+    ));
+    horse?.setSpeed(race.getDistance() / race.getTime());
     console.log(race);
     this.raceList[i] = race;
   };
+
+  isUnique = (name: string): boolean => {
+    for (let i = 0; i < this.horseList.length; i++) {
+      if (this.horseList[i] == null) {
+        return true;
+      }
+      if (name === this.horseList[i].getName()) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
 }
 
 export { Form };
