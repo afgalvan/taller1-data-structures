@@ -1,5 +1,5 @@
-import { Horse } from './Horse';
-import { Race } from './Race';
+import { Horse } from '../models/Horse';
+import { Race } from '../models/Race';
 
 class Form {
   horseList: Array<Horse>;
@@ -48,12 +48,12 @@ class Form {
     });
   };
 
-  isUnique = (name: string, horse: Array<Horse>): boolean => {
-    for (let i = 0; i < horse.length; i++) {
-      if (horse[i] == null) {
+  isUnique = (name: string): boolean => {
+    for (let i = 0; i < this.horseList.length; i++) {
+      if (this.horseList[i] == null) {
         return true;
       }
-      if (name === horse[i].name) {
+      if (name === this.horseList[i].name) {
         return false;
       }
     }
@@ -64,7 +64,7 @@ class Form {
   wasHorseAdded = (i: number): boolean => {
     const name = (<HTMLInputElement>document.getElementById('horseName'))
       ?.value;
-    if (!this.isUnique(name, this.horseList)) {
+    if (!this.isUnique(name)) {
       alert('Nombre del caballo ya registrado');
       return false;
     }
