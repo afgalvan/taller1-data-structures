@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
+@function rem($pixels) {
+  @return ($pixels * 1px) / 16px * 1rem;
+}
+
+// Font ========================================================================
+$karla: 'Karla', sans-serif;
+$fontSize: rem(16);
+// Color schema ================================================================
+$background: hsl(204, 43%, 93%);
+$fontColor: hsl(218, 22%, 67%);
+$buttonsColor: hsl(71, 73%, 54%);
+$secondaryColor: hsl(179, 62%, 43%);
+$altColor: #4bbebb;
+
+// misc ========================================================================
+$borderRadius: rem(8);

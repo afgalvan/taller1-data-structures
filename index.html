@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/styles/main.css" />
+    <title>Fiestas patronales.</title>
+  </head>
+  <body>
+    <main class="main">
+      <div class="card">
+        <div class="card__head">
+          <h1 class="card__head__title">
+            <span class="card__head__title__main-title">
+              Fiestas Patronales de San Cristobal.
+            </span>
+            <span class="card__head__title__subtitle">
+              Registro de carreras y caballos.
+            </span>
+          </h1>
+        </div>
+        <div class="card__foot">
+          <div class="card__foot__left">
+            <h2 class="card__foot__left__title">Registrar caballo.</h2>
+            <form id="horseLog">
+              <!-- Horse name -->
+              <label for="name">Nombre</label>
+              <input
+                type="text"
+                required
+                id="horseName"
+                onkeypress="return /[a-z]/i.test(event.key)"
+                placeholder="Nombre"
+              />
+
+              <!-- Horse weight -->
+              <label for="weight">Peso</label>
+              <input
+                type="number"
+                required
+                min="1"
+                id="horseWeight"
+                pattern="^\d*(\.\d{0,4})?$"
+                placeholder="Peso (kg)"
+                step=".1"
+              />
+
+              <!-- Horse age -->
+              <label for="age">Edad</label>
+              <input
+                type="number"
+                required
+                value="1"
+                min="1"
+                max="7"
+                id="horseAge"
+                placeholder="Edad"
+              />
+
+              <!-- Horse breed -->
+              <label for="breed">Raza</label>
+              <input
+                type="text"
+                required
+                id="horseBreed"
+                onkeypress="return /[a-z]/i.test(event.key)"
+                placeholder="Raza"
+              />
+              <button type="submit" id="horseLog" title="Registrar caballo">
+                Registrar
+              </button>
+            </form>
+          </div>
+          <div class="card__foot__right">
+            <h2 class="card__foot__right__title">Registrar carreras.</h2>
+            <form id="raceLog">
+              <!-- Race id -->
+              <label for="raceId">Número de carrera</label>
+              <input
+                type="text"
+                required
+                readonly
+                id="raceId"
+                value="1"
+                placeholder="Número de carrera"
+              />
+
+              <!-- Race jockey -->
+              <label for="jockey">Nombre del jinete</label>
+              <input
+                type="text"
+                onkeypress="return /[a-z]/i.test(event.key)"
+                id="jockeyName"
+                required
+                placeholder="Nombre del jinete"
+              />
+
+              <!-- Race horse -->
+              <label for="horseName">Nombre del caballo</label>
+              <select id="nameList" required></select>
+
+              <!-- Race distance -->
+              <label for="distance">Distancia recorrida</label>
+              <input
+                type="number"
+                required
+                id="distance"
+                placeholder="Distancia recorrida"
+                pattern="^\d*(\.\d{0,4})?$"
+                step=".1"
+              />
+
+              <!-- Race time -->
+              <label for="distance">Tiempo transcurrido</label>
+              <input
+                type="number"
+                required
+                id="time"
+                placeholder="Distancia recorrida"
+                pattern="^\d*(\.\d{0,4})?$"
+                step=".1"
+              />
+              <button type="submit" id="raceLog" title="Registrar carrera">
+                Registrar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

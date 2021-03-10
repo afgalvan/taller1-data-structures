@@ -1,0 +1,48 @@
+form {
+  label {
+    font-weight: bold;
+  }
+
+  #raceId {
+    color: rgb(199, 199, 199);
+    text-align: center;
+    font-weight: bold;
+    border-color: white;
+  }
+
+  input,
+  button,
+  select {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: white;
+    height: rem(30);
+    border-bottom: 1px solid;
+    margin-bottom: rem(20);
+    background: transparent;
+    font-size: rem(13);
+  }
+
+  select {
+    cursor: pointer;
+  }
+
+  button {
+    background-color: $buttonsColor;
+    cursor: pointer;
+    width: rem(250);
+    height: rem(35);
+    font-size: rem(15);
+    border-bottom: 0px solid;
+    font-weight: bold;
+    border-radius: rem(5);
+    transition: all 0.2s ease-in;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      box-shadow: 0 7px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(rem(-2));
+    }
+  }
+}

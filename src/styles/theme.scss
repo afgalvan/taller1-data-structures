@@ -1,0 +1,9 @@
+@import './utilities';
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $background;
+  text-rendering: optimizeSpeed;
+  font-family: $karla;
+}
