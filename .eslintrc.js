@@ -16,7 +16,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
-    'max-len': [2, { code: 80, ignoreUrls: true }],
+    'max-len': [2, { code: 95, ignoreUrls: true }],
     indent: ['error', 2, { SwitchCase: 1 }],
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],

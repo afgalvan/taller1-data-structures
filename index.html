@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="src/styles/main.css" />
-    <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="src/point_1/img/favicon.png" type="image/x-icon" />
     <title>Fiestas patronales.</title>
   </head>
   <body>
@@ -16,9 +15,7 @@
             <span class="card__head__title__main-title">
               Fiestas Patronales de San Cristobal.
             </span>
-            <span class="card__head__title__subtitle">
-              Registro de carreras y caballos.
-            </span>
+            <span class="card__head__title__subtitle"> Registro de carreras y caballos. </span>
           </h1>
         </div>
         <div class="card__foot">
@@ -31,7 +28,7 @@
                 type="text"
                 required
                 id="horseName"
-                onkeypress="return /[a-z]/i.test(event.key)"
+                onkeypress="return /[a-zÁ-Ź\s]/i.test(event.key)"
                 placeholder="Nombre"
               />
 
@@ -65,12 +62,10 @@
                 type="text"
                 required
                 id="horseBreed"
-                onkeypress="return /[a-z]/i.test(event.key)"
+                onkeypress="return /[a-zÁ-Ź\s]/i.test(event.key)"
                 placeholder="Raza"
               />
-              <button type="submit" id="horseLog" title="Registrar caballo">
-                Registrar
-              </button>
+              <button type="submit" id="horseLog" title="Registrar caballo">Registrar</button>
             </form>
           </div>
           <div class="card__foot__right">
@@ -91,7 +86,7 @@
               <label for="jockey">Nombre del jinete</label>
               <input
                 type="text"
-                onkeypress="return /[a-z]/i.test(event.key)"
+                onkeypress="return /[a-zÁ-Ź\s]/i.test(event.key)"
                 id="jockeyName"
                 required
                 placeholder="Nombre del jinete"
@@ -107,24 +102,22 @@
                 type="number"
                 required
                 id="distance"
-                placeholder="Distancia recorrida"
+                placeholder="Distancia recorrida (km)"
                 pattern="^\d*(\.\d{0,4})?$"
                 step=".1"
               />
 
               <!-- Race time -->
-              <label for="distance">Tiempo transcurrido</label>
+              <label for="time">Tiempo transcurrido</label>
               <input
                 type="number"
                 required
                 id="time"
-                placeholder="Distancia recorrida"
+                placeholder="Tiempo transcurrido (s)"
                 pattern="^\d*(\.\d{0,4})?$"
                 step=".1"
               />
-              <button type="submit" id="raceLog" title="Registrar carrera">
-                Registrar
-              </button>
+              <button type="submit" id="raceLog" title="Registrar carrera">Registrar</button>
             </form>
           </div>
         </div>
