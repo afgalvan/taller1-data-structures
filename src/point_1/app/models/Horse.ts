@@ -1,30 +1,24 @@
-export class Horse {
-  private name: string;
+import { Competitor } from './Competitor';
+import { Jockey } from './Jockey';
+
+export class Horse extends Competitor {
   private weight: number;
   private age: number;
   private breed: string;
-  private jockeyName: string;
+  private jockey: Jockey;
   private speed: number;
   private distance: number;
   private time: number;
 
-  constructor(name?: string, weight?: number, age?: number, breed?: string) {
-    this.name = name || '';
-    this.weight = weight || 0;
-    this.age = age || 0;
-    this.breed = breed || '';
-    this.jockeyName = '';
+  constructor() {
+    super();
+    this.weight = 0;
+    this.age = 0;
+    this.breed = '';
+    this.jockey = new Jockey();
     this.speed = 0;
     this.distance = 0;
     this.time = 0;
-  }
-
-  public getName(): string {
-    return this.name;
-  }
-
-  public setName(name: string): void {
-    this.name = name;
   }
 
   public getWeight(): number {
@@ -51,12 +45,12 @@ export class Horse {
     this.breed = breed;
   }
 
-  public getJockeyName(): string {
-    return this.jockeyName;
+  public getJockey(): Jockey {
+    return this.jockey;
   }
 
-  public setJockeyName(jockeyName: string): void {
-    this.jockeyName = jockeyName;
+  public setJockey(jockey: Jockey): void {
+    this.jockey = jockey;
   }
 
   public getSpeed(): number {

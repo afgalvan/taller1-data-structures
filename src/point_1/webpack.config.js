@@ -1,10 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: ['@babel/polyfill', './src/point_1/app/index.js'],
+    app: ['@babel/polyfill', './app/index.js'],
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -28,6 +29,15 @@ module.exports = {
     ],
   },
 
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new CssMinimizerPlugin({
+        sourceMap: true,
+      }),
+    ],
+  },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
@@ -39,6 +49,10 @@ module.exports = {
         removeStyleLinkTypeAttributes: true,
         useShortDoctype: true,
       },
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'table.html',
+      template: './views/table.html',
     }),
     new MiniCssExtractPlugin({
       filename: 'css/app.bundle.css',
