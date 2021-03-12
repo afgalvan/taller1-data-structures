@@ -1,4 +1,5 @@
 import { Horse } from '../models/Horse';
+import { Jockey } from '../models/Jockey';
 import { Race } from '../models/Race';
 import { Utils } from './Utils';
 
@@ -23,36 +24,37 @@ class Form {
     let i = 0;
     this.horseForm?.addEventListener('submit', (e: Event) => {
       e.preventDefault();
-
-      if (i >= 4) {
-        alert('No se pueden registrar más caballos');
-      } else {
-        if (!this.wasHorseAdded(i)) return;
-        this.horseForm?.reset();
-        i++;
-      }
+      i = this.registerHorse(i);
     });
 
     let raceIndex = 0;
     let horseIndex = 0;
+    const race = new Race();
+    race.setId(parseInt((<HTMLInputElement>document.getElementById('raceId'))?.value));
     this.raceForm?.addEventListener('submit', (e: Event) => {
       e.preventDefault();
-
-      if (horseIndex++ > 4) {
+      if (horseIndex >= 4) {
+        console.log(`Horse index: ${horseIndex}`);
+        const race = new Race();
+        race.setId(parseInt((<HTMLInputElement>document.getElementById('raceId'))?.value));
         console.log(this.raceList[raceIndex].getHorseWinner());
+        this.raceList[raceIndex].getHorseWinner().addWin();
+        this.raceList[raceIndex].getHorseWinner().getJockey().addWin();
         horseIndex = 0;
         raceIndex++;
       }
-      if (raceIndex > this.limit) {
-        alert('No se pueden registrar más carreras');
-      } else {
-        this.addHorseToRace(raceIndex, horseIndex);
-        this.raceForm?.reset();
-        this.raceId &&
-          (this.raceId.value =
-            raceIndex >= this.limit ? 'Límite' : (raceIndex + 1).toString());
-      }
+      if (this.registerRace(race, raceIndex, horseIndex)) horseIndex++;
     });
+  };
+
+  registerHorse = (i: number) => {
+    if (i >= 4) {
+      alert('No se pueden registrar más caballos');
+      return i;
+    }
+    if (!this.wasHorseAdded(i)) return i;
+    this.horseForm?.reset();
+    return ++i;
   };
 
   wasHorseAdded = (i: number): boolean => {
@@ -71,12 +73,15 @@ class Form {
     horse.setAge(parseInt((<HTMLInputElement>document.getElementById('horseAge'))?.value));
     horse.setBreed((<HTMLInputElement>document.getElementById('horseBreed'))?.value);
     // console.log(horse);
-    if (!this.horseList[i - 1] || horse.getAge() >= this.horseList[i - 1].getAge()) {
-      this.horseList[i] = horse;
-    } else {
-      [this.horseList[i], this.horseList[i - 1]] = [this.horseList[i - 1], horse];
+    this.horseList[i] = horse; // 1, 2, 3, 4 O(1)
+    if (this.horseList[i - 1] && horse.getAge() < this.horseList[i - 1].getAge()) {
+      Utils.quickSort(this.horseList, 0, i);
     }
+    this.showHorsesList();
+    return true;
+  };
 
+  showHorsesList = (): void => {
     // Rebuild dropdown section
     const options = document.querySelectorAll('#nameList option');
     options.forEach((o) => o.remove());
@@ -89,28 +94,40 @@ class Form {
       horseName.innerHTML = h.getName();
       nameList?.appendChild(horseName);
     });
+  };
 
+  registerRace = (race: Race, raceIndex: number, horseIndex: number): boolean => {
+    if (raceIndex > this.limit) {
+      alert('No se pueden registrar más carreras');
+      return false;
+    } else {
+      if (!this.addHorseToRace(race, raceIndex, horseIndex)) return false;
+      this.raceForm?.reset();
+      this.raceId &&
+        (this.raceId.value = raceIndex >= this.limit ? 'Límite' : (raceIndex + 1).toString());
+    }
     return true;
   };
 
-  addHorseToRace = (raceIndex: number, horseIndex: number): void => {
-    const race = new Race();
-    race.setId(parseInt((<HTMLInputElement>document.getElementById('raceId'))?.value));
-
+  addHorseToRace = (race: Race, raceIndex: number, horseIndex: number): boolean => {
     // Create horse
     const horse = Utils.findHorse(
       (<HTMLInputElement>document.getElementById('nameList'))?.value,
       this.horseList,
     );
     // Check if horse race log was already sended
+    console.log(`Race index: ${raceIndex}`);
+
     if (this.raceList[raceIndex]) {
       if (!Utils.isUnique(horse?.getName() || '', this.raceList[raceIndex].getHorseList())) {
-        console.log('Brooo');
         alert(`Ya se ha registrado la participación del caballo ${horse?.getName()}`);
-        return;
+        return false;
       }
     }
-    horse?.setJockeyName((<HTMLInputElement>document.getElementById('jockeyName'))?.value);
+    const jockey = new Jockey(
+      (<HTMLInputElement>document.getElementById('jockeyName'))?.value,
+    );
+    horse?.setJockey(jockey);
     horse?.setDistance(
       parseFloat((<HTMLInputElement>document.getElementById('distance'))?.value),
     );
@@ -120,6 +137,7 @@ class Form {
     race.addHorseAt(horseIndex, horse || new Horse());
     Utils.selectWinners(horse || new Horse(), race);
     this.raceList[raceIndex] = race;
+    return true;
   };
 }
 

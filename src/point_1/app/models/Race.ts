@@ -1,18 +1,19 @@
 import { Horse } from './Horse';
+import { Jockey } from './Jockey';
 
 export class Race {
   private id: number;
   private horseList: Horse[];
   private horseWinner: Horse;
   private secondPlace: Horse;
-  private jockeyWinner: string;
+  private jockeyWinner: Jockey;
 
   constructor() {
     this.id = 0;
     this.horseList = new Array<Horse>(4);
     this.horseWinner = new Horse();
     this.secondPlace = new Horse();
-    this.jockeyWinner = '';
+    this.jockeyWinner = new Jockey();
   }
 
   public getId(): number {
@@ -51,11 +52,11 @@ export class Race {
     this.secondPlace = secondPlace;
   }
 
-  public getJockeyWinner(): string {
+  public getJockeyWinner(): Jockey {
     return this.jockeyWinner;
   }
 
-  public setJockeyWinner(jockeyWinner: string): void {
+  public setJockeyWinner(jockeyWinner: Jockey): void {
     this.jockeyWinner = jockeyWinner;
   }
 }
