@@ -27,13 +27,13 @@ export class FormController {
     let raceIndex = 0;
     let horseIndex = 0;
     const race = new Race();
-    race.setId(parseInt((<HTMLInputElement>document.getElementById('raceId'))?.value));
+    race.setId(parseInt(this.form.getRaceId()?.value));
     this.form.getRaceForm()?.addEventListener('submit', (e: Event) => {
       e.preventDefault();
       if (horseIndex >= 4) {
         console.log(`Horse index: ${horseIndex}`);
         const race = new Race();
-        race.setId(parseInt((<HTMLInputElement>document.getElementById('raceId'))?.value));
+        race.setId(parseInt(this.form.getRaceId()?.value));
         console.log(this.raceList[raceIndex].getHorseWinner());
         this.raceList[raceIndex].getHorseWinner().addWin();
         this.raceList[raceIndex].getHorseWinner().getJockey().addWin();
@@ -41,6 +41,7 @@ export class FormController {
         raceIndex++;
       }
       if (this.registerRace(race, raceIndex, horseIndex)) horseIndex++;
+      // console.log(horseIndex + 0);
     });
   };
 
@@ -101,7 +102,8 @@ export class FormController {
       if (!this.addHorseToRace(race, raceIndex, horseIndex)) return false;
       this.form.getRaceForm()?.reset();
       this.form.getRaceId() &&
-        (this.form.getRaceId().value = raceIndex >= this.limit ? 'Límite' : (raceIndex + 1).toString());
+        (this.form.getRaceId().value =
+          raceIndex >= this.limit ? 'Límite' : (raceIndex + 1).toString());
     }
     return true;
   };
@@ -137,4 +139,3 @@ export class FormController {
     return true;
   };
 }
-

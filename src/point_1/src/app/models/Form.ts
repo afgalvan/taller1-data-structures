@@ -13,23 +13,15 @@ export class Form {
     return this.horseForm;
   }
 
-  public setHorseForm(horseForm: HTMLFormElement): void {
-    this.horseForm = horseForm;
-  }
-
   public getRaceForm(): HTMLFormElement {
     return this.raceForm;
   }
 
-  public setRaceForm(raceForm: HTMLFormElement): void {
-    this.raceForm = raceForm;
-  }
-
   public getRaceId(): HTMLInputElement {
-    return this.raceId;
+    return <HTMLInputElement>document.getElementById('raceId');
   }
 
-  public setRaceId(raceId: HTMLInputElement): void {
-    this.raceId = raceId;
+  public getRaceIdValue(): string {
+    return this.raceId.value;
   }
 }

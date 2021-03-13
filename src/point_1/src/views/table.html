@@ -4,32 +4,39 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
     <title>Fiestas patronales.</title>
   </head>
   <body>
     <header class="header-bar">
-      <h1 class="header-bar__title hiden" id="headTitle">Resultado de las carreras.</h1>
+      <h1 class="header-bar__title hidden" id="headTitle">Resultado de las carreras.</h1>
     </header>
 
     <!-- Main content -->
     <main>
       <section class="table-responsive">
-        <hr />
         <div class="table-responsive__container">
           <table id="horseWinners">
-            <tr id="header">
+            <tr class="header">
               <th>Numero de carrera.</th>
               <th>Posición ocupada.</th>
               <th>Nombre del caballo.</th>
             </tr>
-            <tr></tr>
-            <tr></tr>
-            <tr></tr>
+          </table>
+          <table id="horseMVP">
+            <tr class="header">
+              <th>Nombre del caballo.</th>
+              <th>Carreras ganadas.</th>
+            </tr>
+          </table>
+          <table id="jockeyMVP">
+            <tr class="header">
+              <th>Nombre del jinete.</th>
+              <th>Carreras ganadas.</th>
+            </tr>
           </table>
         </div>
       </section>
     </main>
-    <script src="js/app.bundle.js"></script>
   </body>
 </html>
