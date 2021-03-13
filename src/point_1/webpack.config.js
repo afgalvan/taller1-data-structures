@@ -6,7 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: ['@babel/polyfill', './app/index.js'],
+    app: ['@babel/polyfill', './src/index.js'],
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -58,8 +58,8 @@ module.exports = {
       },
     }),
     new HtmlWebpackPlugin({
+      template: './src/views/table.html',
       filename: 'table.html',
-      template: './views/table.html',
     }),
     new MiniCssExtractPlugin({
       filename: 'css/app.bundle.css',

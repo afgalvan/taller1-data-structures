@@ -1,28 +1,25 @@
+import { Form } from '../models/Form';
 import { Horse } from '../models/Horse';
 import { Jockey } from '../models/Jockey';
 import { Race } from '../models/Race';
-import { Utils } from './Utils';
+import { Utils } from './utils.controller';
 
-class Form {
+export class FormController {
+  private form: Form;
   private horseList: Array<Horse>;
   private raceList: Array<Race>;
-  private horseForm?: HTMLFormElement;
-  private raceForm?: HTMLFormElement;
-  private raceId?: HTMLInputElement;
   private limit: number;
 
   constructor() {
+    this.form = new Form();
     this.horseList = new Array<Horse>(4);
     this.raceList = new Array<Race>(10);
-    this.horseForm = <HTMLFormElement>document.getElementById('horseLog') || undefined;
-    this.raceForm = <HTMLFormElement>document.getElementById('raceLog') || undefined;
-    this.raceId = <HTMLInputElement>document.getElementById('raceId') || undefined;
     this.limit = 10;
   }
 
   start = (): void => {
     let i = 0;
-    this.horseForm?.addEventListener('submit', (e: Event) => {
+    this.form.getHorseForm()?.addEventListener('submit', (e: Event) => {
       e.preventDefault();
       i = this.registerHorse(i);
     });
@@ -31,7 +28,7 @@ class Form {
     let horseIndex = 0;
     const race = new Race();
     race.setId(parseInt((<HTMLInputElement>document.getElementById('raceId'))?.value));
-    this.raceForm?.addEventListener('submit', (e: Event) => {
+    this.form.getRaceForm()?.addEventListener('submit', (e: Event) => {
       e.preventDefault();
       if (horseIndex >= 4) {
         console.log(`Horse index: ${horseIndex}`);
@@ -53,7 +50,7 @@ class Form {
       return i;
     }
     if (!this.wasHorseAdded(i)) return i;
-    this.horseForm?.reset();
+    this.form.getHorseForm()?.reset();
     return ++i;
   };
 
@@ -102,9 +99,9 @@ class Form {
       return false;
     } else {
       if (!this.addHorseToRace(race, raceIndex, horseIndex)) return false;
-      this.raceForm?.reset();
-      this.raceId &&
-        (this.raceId.value = raceIndex >= this.limit ? 'Límite' : (raceIndex + 1).toString());
+      this.form.getRaceForm()?.reset();
+      this.form.getRaceId() &&
+        (this.form.getRaceId().value = raceIndex >= this.limit ? 'Límite' : (raceIndex + 1).toString());
     }
     return true;
   };
@@ -141,4 +138,3 @@ class Form {
   };
 }
 
-export { Form };

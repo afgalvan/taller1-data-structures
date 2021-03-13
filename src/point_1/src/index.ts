@@ -1,8 +1,8 @@
-import { Form } from './controllers/Form';
-import '../styles/main.css';
+import { FormController } from './app/controllers/form.controller';
+import './styles/main.css';
 
 const main = (): void => {
-  const form = new Form();
+  const form = new FormController();
   (<HTMLFormElement>document.getElementById('horseLog'))?.reset();
   (<HTMLFormElement>document.getElementById('raceLog'))?.reset();
   (<HTMLInputElement>document.getElementById('raceId')).value = '1';
