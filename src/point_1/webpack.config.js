@@ -7,7 +7,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
   entry: {
     app: './src/index.js',
-    table: './src/app/results.js'
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -53,6 +52,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
+      filename: 'index.html',
       minify: {
         collapseWhitespace: true,
         removeComments: true,
@@ -61,12 +61,6 @@ module.exports = {
         removeStyleLinkTypeAttributes: true,
         useShortDoctype: true,
       },
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/views/table.html',
-      inject: 'body',
-      chunks: ['table'],
-      filename: 'table.html',
     }),
     new MiniCssExtractPlugin({
       filename: 'css/app.bundle.css',

@@ -3,21 +3,41 @@ import { Horse } from '../models/Horse';
 import { Jockey } from '../models/Jockey';
 import { Race } from '../models/Race';
 import { Utils } from './utils.controller';
+import { TableController } from './table.controller';
 
 export class FormController {
   private form: Form;
   private horseList: Array<Horse>;
   private raceList: Array<Race>;
   private limit: number;
+  private horseMVP: Horse;
+  private jockeyMVP: Jockey;
 
   constructor() {
     this.form = new Form();
     this.horseList = new Array<Horse>(4);
     this.raceList = new Array<Race>(10);
     this.limit = 10;
+    this.horseMVP = new Horse();
+    this.jockeyMVP = new Jockey();
   }
 
+  getHorseList = (): Array<Horse> => {
+    return this.horseList;
+  };
+
+  setHorseMVP = (horse: Horse): void => {
+    this.horseMVP = horse;
+  };
+
+  setJockeyMVP = (jockey: Jockey): void => {
+    this.jockeyMVP = jockey;
+  };
+
   start = (): void => {
+    this.form.getHorseForm().reset();
+    this.form.getRaceForm().reset();
+    this.form.getRaceId().value = '1';
     let i = 0;
     this.form.getHorseForm()?.addEventListener('submit', (e: Event) => {
       e.preventDefault();
@@ -30,8 +50,9 @@ export class FormController {
     race.setId(parseInt(this.form.getRaceId()?.value));
     this.form.getRaceForm()?.addEventListener('submit', (e: Event) => {
       e.preventDefault();
+      if (this.registerRace(race, raceIndex, horseIndex)) horseIndex++;
+
       if (horseIndex >= 4) {
-        console.log(`Horse index: ${horseIndex}`);
         const race = new Race();
         race.setId(parseInt(this.form.getRaceId()?.value));
         console.log(this.raceList[raceIndex].getHorseWinner());
@@ -40,8 +61,18 @@ export class FormController {
         horseIndex = 0;
         raceIndex++;
       }
-      if (this.registerRace(race, raceIndex, horseIndex)) horseIndex++;
-      // console.log(horseIndex + 0);
+
+      if (raceIndex >= 1) {
+        Utils.evalMVP(this);
+        document.getElementById('results')?.classList.remove('hidden');
+        document.getElementById('results')?.classList.add('table-display');
+        document.getElementById('main')?.classList.add('hidden');
+        document.getElementById('main')?.classList.remove('main');
+        const table = new TableController(this.raceList, this.horseMVP);
+        table.start();
+      }
+
+      this.form.getRaceId() && (this.form.getRaceId().value = (raceIndex + 1).toString());
     });
   };
 
@@ -50,6 +81,7 @@ export class FormController {
       alert('No se pueden registrar más caballos');
       return i;
     }
+
     if (!this.wasHorseAdded(i)) return i;
     this.form.getHorseForm()?.reset();
     return ++i;
@@ -70,12 +102,12 @@ export class FormController {
     );
     horse.setAge(parseInt((<HTMLInputElement>document.getElementById('horseAge'))?.value));
     horse.setBreed((<HTMLInputElement>document.getElementById('horseBreed'))?.value);
-    // console.log(horse);
     this.horseList[i] = horse; // 1, 2, 3, 4 O(1)
     if (this.horseList[i - 1] && horse.getAge() < this.horseList[i - 1].getAge()) {
       Utils.quickSort(this.horseList, 0, i);
     }
     this.showHorsesList();
+
     return true;
   };
 
@@ -101,10 +133,8 @@ export class FormController {
     } else {
       if (!this.addHorseToRace(race, raceIndex, horseIndex)) return false;
       this.form.getRaceForm()?.reset();
-      this.form.getRaceId() &&
-        (this.form.getRaceId().value =
-          raceIndex >= this.limit ? 'Límite' : (raceIndex + 1).toString());
     }
+
     return true;
   };
 
@@ -115,7 +145,6 @@ export class FormController {
       this.horseList,
     );
     // Check if horse race log was already sended
-    console.log(`Race index: ${raceIndex}`);
 
     if (this.raceList[raceIndex]) {
       if (!Utils.isUnique(horse?.getName() || '', this.raceList[raceIndex].getHorseList())) {
@@ -123,6 +152,7 @@ export class FormController {
         return false;
       }
     }
+
     const jockey = new Jockey(
       (<HTMLInputElement>document.getElementById('jockeyName'))?.value,
     );

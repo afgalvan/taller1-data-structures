@@ -1,36 +1,50 @@
+import { Horse } from '../models/Horse';
+import { Race } from '../models/Race';
 import { Table } from '../models/Table';
 
 export class TableController {
-  horsesWinners: Table;
-  horseMVP: Table;
-  jockeyMVP: Table;
+  private horsesWinners: Table;
+  private horseMVPTable: Table;
+  private jockeyMVPTable: Table;
+  private raceList: Race[];
+  private horseMVP: Horse;
 
-  constructor() {
+  constructor(raceList: Race[], horseMVP: Horse) {
     this.horsesWinners = new Table('horseWinners');
-    this.horseMVP = new Table('horseMVP');
-    this.jockeyMVP = new Table('jockeyMVP');
+    this.horseMVPTable = new Table('horseMVP');
+    this.jockeyMVPTable = new Table('jockeyMVP');
+    this.raceList = raceList;
+    this.horseMVP = horseMVP;
   }
 
-  start = () => {
-    this.loadTitle();
+  start = (): void => {
     this.fillWinnersTable();
     this.fillMVPTable();
   };
 
-  loadTitle = () => {
+  loadTitle = (): void => {
     const title = document.getElementById('headTitle');
-    title?.classList.remove('hidden');
+    title?.classList.remove('hideTitle');
   };
 
   fillWinnersTable = () => {
-    this.horsesWinners.addRowAt(1, ['1', '1', 'Maximus']);
-    this.horsesWinners.addRowAt(2, ['1', '2', 'Maximus']);
-    this.horsesWinners.addRowAt(3, ['2', '1', 'Maximus']);
-    this.horsesWinners.addRowAt(4, ['2', '2', 'Maximus']);
+    if (this.raceList[0] === undefined) return;
+    for (let i = 0; i < 1; i++) {
+      this.horsesWinners.addRowAt(i + 1, [
+        `${i + 1}`,
+        '1',
+        `${this.raceList[i].getHorseWinner().getName()}`,
+      ]);
+      this.horsesWinners.addRowAt(i + 2, [
+        `${i + 1}`,
+        '2',
+        `${this.raceList[i].getSecondPlace().getName()}`,
+      ]);
+    }
   };
 
-  fillMVPTable = () => {
-    this.horseMVP.addRowAt(1, ['Maximus', '1']);
-    this.jockeyMVP.addRowAt(1, ['Aurelio', '1']);
+  fillMVPTable = (): void => {
+    this.horseMVPTable.addRowAt(1, [this.horseMVP.getName(), `${this.horseMVP.getWins()}`]);
+    this.jockeyMVPTable.addRowAt(1, ['Aurelio', '1']);
   };
 }

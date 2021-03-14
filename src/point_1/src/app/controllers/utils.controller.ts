@@ -1,5 +1,6 @@
 import { Horse } from '../models/Horse';
 import { Race } from '../models/Race';
+import { FormController } from './form.controller';
 
 export class Utils {
   static isUnique = (name: string, horseList: Horse[]): boolean => {
@@ -54,14 +55,28 @@ export class Utils {
     return i + 1;
   };
 
-  static quickSort = (array: Horse[], init: number, limit: number) => {
+  static quickSort = (horses: Horse[], init: number, limit: number) => {
     let partition_index: number;
 
     if (init < limit) {
-      partition_index = Utils.arrayPartition(array, init, limit);
+      partition_index = Utils.arrayPartition(horses, init, limit);
 
-      Utils.quickSort(array, init, partition_index - 1);
-      Utils.quickSort(array, partition_index + 1, limit);
+      Utils.quickSort(horses, init, partition_index - 1);
+      Utils.quickSort(horses, partition_index + 1, limit);
     }
   };
+
+  static evalMVP(formController: FormController): void {
+    const horses = formController.getHorseList();
+    let winsRecord = 0;
+    let MVPIndex = 0;
+    for (let i = 0; i < horses.length; ++i) {
+      if (horses[i].getWins() > winsRecord) {
+        winsRecord = horses[i].getWins();
+        MVPIndex = i;
+      }
+    }
+    formController.setHorseMVP(horses[MVPIndex]);
+    formController.setJockeyMVP(horses[MVPIndex]);
+  }
 }
