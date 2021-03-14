@@ -13,7 +13,7 @@
  * solicitará una vez.
  */
 
-package edu.unicesar.activity.points;
+package edu.unicesar.activity.points.fourth;
 
 import java.util.Scanner;
 
