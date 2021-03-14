@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ButcherShop {
     private final List<Beef> beefList;
-    private final List<String> fatBeefList;
+    private List<String> fatBeefList;
 
     public ButcherShop() {
         this.beefList = new ArrayList<>(100);
@@ -30,6 +30,7 @@ public class ButcherShop {
     }*/
 
     public List<String> getFatBeefList() {
+        fatBeefList = new ArrayList<>(10);
         for (Beef beef: beefList) {
             if (beef.getWeight() > 40 && beef.getGenre() == 'H') {
                 fatBeefList.add(beef.getSerialNumber());
