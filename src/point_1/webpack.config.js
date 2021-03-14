@@ -6,11 +6,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: ['@babel/polyfill', './app/index.js'],
+    app: './src/index.js',
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'js/app.bundle.js',
+    filename: 'js/[name].bundle.js',
   },
 
   devServer: {
@@ -26,6 +26,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
       },
     ],
   },
@@ -48,6 +52,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
+      filename: 'index.html',
       minify: {
         collapseWhitespace: true,
         removeComments: true,
@@ -56,10 +61,6 @@ module.exports = {
         removeStyleLinkTypeAttributes: true,
         useShortDoctype: true,
       },
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'table.html',
-      template: './views/table.html',
     }),
     new MiniCssExtractPlugin({
       filename: 'css/app.bundle.css',

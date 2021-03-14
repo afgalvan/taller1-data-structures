@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
     <title>Fiestas patronales.</title>
   </head>
   <body>
-    <main class="main">
+    <main class="main" id="main">
       <div class="card">
         <div class="card__head">
           <h1 class="card__head__title">
@@ -126,5 +126,31 @@
         </div>
       </div>
     </main>
+    <div class="table-responsive hidden" id="results">
+      <header class="header-bar">
+        <h1 class="header-bar__titlepeso;" id="headTitle">Resultado de las carreras.</h1>
+      </header>
+      <div class="table-responsive__container">
+        <table id="horseWinners">
+          <tr class="header">
+            <th>Numero de carrera.</th>
+            <th>Posición ocupada.</th>
+            <th>Nombre del caballo.</th>
+          </tr>
+        </table>
+        <table id="horseMVP">
+          <tr class="header">
+            <th>Nombre del caballo.</th>
+            <th>Carreras ganadas.</th>
+          </tr>
+        </table>
+        <table id="jockeyMVP">
+          <tr class="header">
+            <th>Nombre del jinete.</th>
+            <th>Carreras ganadas.</th>
+          </tr>
+        </table>
+      </div>
+    </div>
   </body>
 </html>
