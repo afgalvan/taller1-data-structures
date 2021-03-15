@@ -18,10 +18,10 @@
  * correspondiente.
  */
 
-package edu.unicesar.activity.points.fifth;
+package punto_5;
 
-import edu.unicesar.activity.points.fifth.models.Beef;
-import edu.unicesar.activity.points.fifth.models.ButcherShop;
+import punto_5.models.Beef;
+import punto_5.models.ButcherShop;
 
 import java.io.IOException;
 import java.util.List;

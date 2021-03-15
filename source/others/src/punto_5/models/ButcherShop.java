@@ -1,4 +1,4 @@
-package edu.unicesar.activity.points.fifth.models;
+package punto_5.models;
 
 import java.util.ArrayList;
 import java.util.List;

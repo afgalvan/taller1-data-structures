@@ -14,10 +14,10 @@
  * solicitará una vez.
  */
 
-package edu.unicesar.activity.points.fourth;
+package punto_4;
 
-import edu.unicesar.activity.points.fifth.Butcher;
-import edu.unicesar.activity.points.third.ArrayOperations;
+import punto_5.Butcher;
+import punto_3.ArrayOperations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,7 @@ import java.util.function.BiFunction;
 public class ArrayMenu {
     public static Scanner scanner = new Scanner(System.in);
     public static final int ARRAY_LIMIT = 20;
+    public static int elementChunks = 0;
 
     public static void main(String[] args) {
         List<Integer> arrayA = new ArrayList<>(ARRAY_LIMIT);
@@ -38,6 +39,7 @@ public class ArrayMenu {
             menuPrompt();
             System.out.print("\nIngrese una opción: ");
             choice = scanner.next().charAt(0);
+            scanner.nextLine();
             choiceManager(choice, arrayA, arrayB, arrayC);
         } while (true);
 
@@ -56,18 +58,35 @@ public class ArrayMenu {
 
     public static void choiceManager(char choice, List<Integer> arrayA,
                                      List<Integer> arrayB, List<Integer> arrayC) {
+        if (elementChunks == 0 && choice == '5') {
+            System.out.print("\nNo hay arrays para mostrar.");
+            Butcher.keyPause();
+            return;
+        } else if (elementChunks == 0 && choice != '6') {
+            System.out.print("\nIngrese la cantidad de elementos: ");
+            elementChunks = scanner.nextInt();
+            scanner.nextLine();
+        }
         switch (choice) {
             case '1':
-                randomize(arrayA, ARRAY_LIMIT);
+                randomize(arrayA, elementChunks);
+                System.out.println("\nvectorA llenado.");
+                Butcher.keyPause();
                 break;
             case '2':
-                randomize(arrayB, ARRAY_LIMIT);
+                randomize(arrayB, elementChunks);
+                System.out.println("\nvectorB llenado.");
+                Butcher.keyPause();
                 break;
             case '3':
                 applyOperation(Integer::sum, arrayA, arrayB, arrayC);
+                System.out.println("\nC = A + B.");
+                Butcher.keyPause();
                 break;
             case '4':
                 applyOperation((a, b) -> a - b, arrayB, arrayA, arrayC);
+                System.out.println("\nC = B - A.");
+                Butcher.keyPause();
                 break;
             case '5':
                 displayMenu(arrayA, arrayB, arrayC);

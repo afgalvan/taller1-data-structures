@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-cd out/production/others || exit 1
-java edu.unicesar.activity.main.Main "$@"
-cd - > /dev/null || exit 1
+cd out/production/others || echo "Folder not found"
+echo "kk.txt" >> k.txt
+# && java "$1" && cd - || exit 1

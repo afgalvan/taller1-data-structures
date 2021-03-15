@@ -8,7 +8,7 @@
  * Excelentes[4,1 –5]
  */
 
-package edu.unicesar.activity.points.second;
+package punto_2;
 
 import java.util.List;
 import java.util.ArrayList;

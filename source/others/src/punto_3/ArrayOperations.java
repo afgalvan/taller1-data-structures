@@ -8,7 +8,7 @@
  * en orden INVERSO al que están en el array A.
  */
 
-package edu.unicesar.activity.points.third;
+package punto_3;
 
 import java.util.ArrayList;
 import java.util.List;

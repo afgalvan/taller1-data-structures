@@ -1,4 +1,4 @@
-package edu.unicesar.activity.points.fifth.models;
+package punto_5.models;
 
 public class Beef {
     private String serialNumber;
