@@ -8,42 +8,30 @@
  * Excelentes[4,1 –5]
  */
 
-package edu.unicesar.activity.points;
+package punto_2;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Grades {
+public class RandomGrades {
 
-    public static void main() {
+    public static void main(String[] args) {
         System.out.print("\033\143");
 
         System.out.println("Calificaciones Aleatorias.\n");
-        List<Double> gradeList = randomGrades();
+        List<Double> gradeList = randomize(20);
+        displayArray(gradeList);
         filterGrades(gradeList);
     }
 
-    public static List<Double> randomGrades() {
+    public static List<Double> randomize(int size) {
+        List<Double> array = new ArrayList<>(size);
         Random random = new Random();
-        List<Double> gradeList = new ArrayList<>(20);
-
-        for (int i = 0; i < 20; i++) {
-            gradeList.add(5 * random.nextDouble());
+        for (int i = 0; i < size; i++) {
+            array.add(5 * random.nextDouble());
         }
-
-        System.out.print("┌");
-        liner(gradeList.size(), '┬');
-        System.out.print("┐\n");
-
-        System.out.print("│");
-        gradeList.forEach(grade -> System.out.printf(" %.2f │", grade));
-
-        System.out.print("\n└");
-        liner(gradeList.size(), '┴');
-        System.out.print("┘\n");
-
-        return gradeList;
+        return array;
     }
 
     public static void liner(int size, char separator) {
@@ -54,6 +42,19 @@ public class Grades {
                 System.out.print(separator);
             }
         }
+    }
+
+    public static void displayArray(List<Double> array) {
+        System.out.print("┌");
+        liner(array.size(), '┬');
+        System.out.print("┐\n");
+
+        System.out.print("│");
+        array.forEach(element -> System.out.printf(" %.2f │", element));
+
+        System.out.print("\n└");
+        liner(array.size(), '┴');
+        System.out.print("┘\n");
     }
 
     public static void filterGrades(List<Double> grades) {
@@ -69,8 +70,8 @@ public class Grades {
                 gradesFiltered[0]++;
             }
         });
-        System.out.println();
-        System.out.println("Mapeo de notas.\n");
+        System.out.println("\nMapeo de notas.");
+        System.out.println("===============");
         System.out.printf("Deficientes: %2d\n", gradesFiltered[0]);
         System.out.printf("Regulares  : %2d\n", gradesFiltered[1]);
         System.out.printf("Buenas     : %2d\n", gradesFiltered[2]);
