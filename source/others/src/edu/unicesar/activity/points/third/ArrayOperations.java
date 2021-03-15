@@ -59,7 +59,7 @@ public class ArrayOperations {
     }
 
     public static void liner(int size, char separator) {
-        String line = new String(new char[4]).replace("\0", "─");
+        String line = new String(new char[5]).replace("\0", "─");
         for (int i = 0; i < size; i++) {
             System.out.print(line);
             if (i < size - 1) {
@@ -74,7 +74,7 @@ public class ArrayOperations {
         System.out.print("┐\n");
 
         System.out.print("│");
-        array.forEach(element -> System.out.printf("%3d │", element));
+        array.forEach(element -> System.out.printf("%4d │", element));
         if (array.size() == 0) {
             System.out.print("│");
         }
