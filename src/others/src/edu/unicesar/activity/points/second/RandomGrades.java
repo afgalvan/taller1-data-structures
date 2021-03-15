@@ -16,11 +16,11 @@ import java.util.Random;
 
 public class RandomGrades {
 
-    public static void main() {
+    public static void main(String[] args) {
         System.out.print("\033\143");
 
         System.out.println("Calificaciones Aleatorias.\n");
-        List<Double> gradeList = randomize(10);
+        List<Double> gradeList = randomize(20);
         displayArray(gradeList);
         filterGrades(gradeList);
     }

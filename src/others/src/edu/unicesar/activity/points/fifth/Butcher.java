@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class Butcher {
     public static Scanner scanner = new Scanner(System.in);
 
-    public static void main() {
+    public static void main(String[] args) {
         ButcherShop butcherShop = new ButcherShop();
         System.out.print("\033\143");
         do {
@@ -57,7 +57,13 @@ public class Butcher {
         scanner.nextLine();
         switch (choice) {
             case '1':
-                registerBeef(butcherShop);
+                char registerAgain;
+                do {
+                    registerBeef(butcherShop);
+                    System.out.print("\nDesea registrar otra res (s/otra tecla): ");
+                    registerAgain = scanner.next().toLowerCase().charAt(0);
+                    scanner.nextLine();
+                } while (registerAgain == 's');
                 break;
             case '2':
                 if (butcherShop.getBeefList().size() == 0) {
@@ -92,7 +98,7 @@ public class Butcher {
                 System.out.printf("El serial \"%s\" ya se encuentra registrado.\n\n", serial);
             }
         } while (!isValidInput);
-        beef.setAge(random.nextInt(9) + 1);
+        beef.setAge(random.nextInt(10) + 1);
         System.out.printf("Edad aleatoria: %d\n", beef.getAge());
         do {
             System.out.print("Ingrese el sexo de la res. Macho(M) | Hembra(H): ");

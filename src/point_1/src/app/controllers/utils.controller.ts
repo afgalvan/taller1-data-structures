@@ -8,7 +8,7 @@ export class Utils {
       if (horseList[i] == null) {
         return true;
       }
-      if (name === horseList[i].getName()) {
+      if (name.toLowerCase() === horseList[i].getName().toLowerCase()) {
         return false;
       }
     }
@@ -17,9 +17,9 @@ export class Utils {
   };
 
   static findHorse = (horseName: string, horseList: Horse[]): Horse | null => {
-    for (let h of horseList) {
-      if (h.getName() == horseName) {
-        return h;
+    for (let horse of horseList) {
+      if (horse.getName().toLowerCase() === horseName.toLowerCase()) {
+        return horse;
       }
     }
     return null;
@@ -68,15 +68,21 @@ export class Utils {
 
   static evalMVP(formController: FormController): void {
     const horses = formController.getHorseList();
-    let winsRecord = 0;
-    let MVPIndex = 0;
+    let horseWinsRecord = 0;
+    let jockeyWinsRecord = 0;
+    let horseMVPIndex = 0;
+    let jockeyMVPIndex = 0;
     for (let i = 0; i < horses.length; ++i) {
-      if (horses[i].getWins() > winsRecord) {
-        winsRecord = horses[i].getWins();
-        MVPIndex = i;
+      if (horses[i].getWins() > horseWinsRecord) {
+        horseWinsRecord = horses[i].getWins();
+        horseMVPIndex = i;
+      }
+      if (horses[i].getJockey().getWins() > jockeyWinsRecord) {
+        jockeyWinsRecord = horses[i].getJockey().getWins();
+        jockeyMVPIndex = i;
       }
     }
-    formController.setHorseMVP(horses[MVPIndex]);
-    formController.setJockeyMVP(horses[MVPIndex]);
+    formController.setHorseMVP(horses[horseMVPIndex]);
+    formController.setJockeyMVP(horses[jockeyMVPIndex]);
   }
 }

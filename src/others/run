@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 cd out/production/others || exit 1
-java edu.unicesar.activity.main.Main
+java edu.unicesar.activity.main.Main "$@"
 cd - > /dev/null || exit 1

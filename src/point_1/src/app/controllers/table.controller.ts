@@ -1,4 +1,5 @@
 import { Horse } from '../models/Horse';
+import { Jockey } from '../models/Jockey';
 import { Race } from '../models/Race';
 import { Table } from '../models/Table';
 
@@ -8,13 +9,15 @@ export class TableController {
   private jockeyMVPTable: Table;
   private raceList: Race[];
   private horseMVP: Horse;
+  private jockeyMVP: Jockey;
 
-  constructor(raceList: Race[], horseMVP: Horse) {
+  constructor(raceList: Race[], horseMVP: Horse, jockeyMVP: Jockey) {
     this.horsesWinners = new Table('horseWinners');
     this.horseMVPTable = new Table('horseMVP');
     this.jockeyMVPTable = new Table('jockeyMVP');
     this.raceList = raceList;
     this.horseMVP = horseMVP;
+    this.jockeyMVP = jockeyMVP;
   }
 
   start = (): void => {
@@ -45,6 +48,6 @@ export class TableController {
 
   fillMVPTable = (): void => {
     this.horseMVPTable.addRowAt(1, [this.horseMVP.getName(), `${this.horseMVP.getWins()}`]);
-    this.jockeyMVPTable.addRowAt(1, ['Aurelio', '1']);
+    this.jockeyMVPTable.addRowAt(1, [this.jockeyMVP.getName(), `${this.jockeyMVP.getWins()}`]);
   };
 }

@@ -19,7 +19,7 @@ public class ArrayOperations {
     public static Scanner scanner = new Scanner(System.in);
     public static final int ARRAY_LIMIT = 10;
 
-    public static void main() {
+    public static void main(String[] args) {
         System.out.print("\033\143");
 
         int size;
