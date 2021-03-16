@@ -1,1 +1,51 @@
+FUNCION llenarAleatorio(cantidad)
+    DIMENSION arreglo[20]: decimal doble
+    PARA i <- 1 HASTA cantidad CON PASO 1 HACER
+        arreglo[i] <- aleatorio(0, 5) # aleatorio hace referencia a una funcion que genera números aleatorios en un lenguaje
+    FIN_PARA
+    RETORNAR arreglo
+FIN_FUNCION
+
+FUNCION mostrarArreglo(listaNotas, cantidad)
+    PARA i <- 1 HASTA cantidad CON PASO 1 HACER
+        ESCRIBIR listaNotas[i] + ", "
+    FIN_PARA
+FIN_FUNCION
+
+FUNCION filtrarNotas(listaNotas, cantidad)
+    DIMENSION notasFiltradas[4] <- {0, 0, 0, 0}
+
+    PARA i <- 1 HASTA cantidad CON PASO 1 HACER
+        SI (listaNotas[i] < 1)
+            notasFiltradas[4] <- notasFiltradas + 1
+        SINO
+            SI (listaNotas[i] >= 4.1)
+                notasFiltradas[3] <- notasFiltradas + 1
+            SINO
+                SI (listaNotas[i] >= 4.1)
+                    notasFiltradas[2] <- notasFiltradas + 1
+                SINO
+                    SI (listaNotas[i] >= 4.1)
+                        notasFiltradas[1] <- notasFiltradas + 1
+                    FIN_SI
+                FIN_SI
+            FIN_SI
+        FIN_SI
+    FIN_PARA
+
+    ESCRIBIR "MAPEO DE NOTAS"
+    ESCRIBIR "=============="
+    ESCRIBIR "Deficientes: " + notasFiltradas[1]
+    ESCRIBIR "Regulares  : " + notasFiltradas[2]
+    ESCRIBIR "Buenas     : " + notasFiltradas[3]
+    ESCRIBIR "Excelentes : " + notasFiltradas[4]
+FIN_FUNCION
+
 PROGRAMA_PRINCIPAL
+    cantidad <- 20
+
+    ESCRIBIR "CALIFICACIONES ALEATORIAS"
+    DIMENSION listaNotas[20] <- llenarAleatorio(cantidad)
+    mostrarArreglo(listaNotas, cantidad)
+    filtrarNotas(listaNotas, cantidad)
+FIN PROGRAMA_PRINCIPAL

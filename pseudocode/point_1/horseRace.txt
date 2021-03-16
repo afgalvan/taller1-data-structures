@@ -1,0 +1,70 @@
+REGISTRO Caballo
+    peso: decimal
+    edad: entero
+    raza: cadena
+    jinete: cadena
+    velocidad: decimal
+    distancia: decimal
+    tiempo: decimal
+    nombre: cadena
+    ganadas: entero
+FIN REGISTRO
+
+REGISTRO Jinete
+    nombre: cadena
+    ganadas: entero
+FIN REGISTRO
+
+REGISTRO Carrera
+    numero: entero
+    DIMENSION listaCaballos[4]: Caballo
+    caballoGanador: Caballo
+    caballoSegundo: Caballo
+    jiniteGandor: Jinete
+FIN REGISTRO
+
+FUNCION registarCaballo(i: entero)
+
+FIN_FUNCION
+
+FUNCION mostrarTabla(listaCarreras, caballoMVP, jineteMVP)
+    ESCRIBIR "TABLA DE POSICIONES."
+    ESCRIBIR "| NUMERO DE CARRERA | POSICIÓN OCUPADA | NOMBRE DEL CABALLO |"
+    PARA i <- 1 HASTA LIMITE_CARERRAS CON PASO 1 HACER
+        ESCRIBIR i + " | 1 | " listaCarreras[i].caballoGanador
+        ESCRIBIR i + " | 2 | " listaCarreras[i].caballoSegundo
+    FIN_PARA
+
+    ESCRIBIR ""
+    ESCRIBIR "CABALLO CON MÁS CARRERAS GANADAS"
+    ESCRIBIR "| NOMBRE | CARRERAS GANADAS |"
+    ESCRIBIR "| " + caballoMVP.nombre + " | " + caballoMVP.ganadas + " |"
+
+    ESCRIBIR ""
+    ESCRIBIR "JINETE CON MÁS CARRERAS GANADAS"
+    ESCRIBIR "| NOMBRE | CARRERAS GANADAS |"
+    ESCRIBIR "| " + jineteMVP.nombre + " | " + caballoMVP.ganadas + " |"
+FIN_FUNCION
+
+FUNCION formulario()
+    numeroCarrera <- 1
+    DIMENSION listaCarreras[10] Carrera
+
+    MIENTRAS (numeroCarrera < LIMITE_CARERRAS) HACER
+        ESCRIBIR "Fiestas Patronales de San Cristobal."
+        ESCRIBIR "Registro de carreras y caballos."
+        ESCRIBIR ""
+        ESCRIBIR "MENU"
+        ESCRIBIR "1. Registrar nuevo caballo."
+        ESCRIBIR "2. Registrar nueva carrera."
+        ESCRIBIR "0. Salir."
+    FIN_MIENTRAS
+    mostrarTabla(listaCarreras, caballoMVP, jineteMVP)
+FIN_FUNCION
+
+PROGRAMA_PRINCIPAL
+    CANTIDAD_CABALLOS <- 4
+    LIMITE_CARERRAS <- 10
+
+    formulario()
+FIN PROGRAMA_PRINCIPAL
