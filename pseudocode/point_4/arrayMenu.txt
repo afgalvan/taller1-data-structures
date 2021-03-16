@@ -1,0 +1,108 @@
+FUNCION mostrarMenu()
+    ESCRIBIR "    MENU"
+    ESCRIBIR "1. Llenar el vector A."
+    ESCRIBIR "2. Llenar el vector B."
+    ESCRIBIR "3. Realizar C = A + B."
+    ESCRIBIR "4. Realiar C = B - A."
+    ESCRIBIR "5. Mostrar vector."
+    ESCRIBIR "6. Salir."
+FIN_FUNCION
+
+FUNCION llenarAleatorio(array, cantidadElementos)
+    PARA i <- 1 HASTA cantidadElementos CON PASO 1 HACER
+        array[i] <- aleatorio(-100, 100)
+    FIN_PARA
+FIN_FUNCION
+
+FUNCION mostrarArreglo(array, cantidad)
+    PARA i <- 1 HASTA cantidad CON PASO 1 HACER
+        ESCRIBIR array[i] + ", "
+    FIN_PARA
+FIN_FUNCION
+
+FUNCION aplicarOperacion(opcion, arrayA, arrayB, arrayC, cantidadElementos)
+    PARA i <- 1 HASTA cantidadElementos CON PASO 1 HACER
+        SI opcion = '3' HACER
+            arrayC[i] <- arrayA[i] + arrayB[i]
+        SINO
+            arrayC[i] <- arrayA[i] - arrayB[i]
+        FIN_SI
+    FIN_PARA
+FIN_FUNCION
+
+FUNCION mostrarSubMenu(arrayA, arrayB, arrayC, cantidadElementos)
+    ESCRIBIR "Qué vector desea mostrar?"
+    ESCRIBIR "1. vector A."
+    ESCRIBIR "2. vector B."
+    ESCRIBIR "3. vector C."
+    ESCRIBIR "4. Todos."
+
+    ESCRIBIR "Ingresar una opción: "
+    LEER opcion
+
+    SEGUN opcion HACER
+        '1':
+            ESCRIBIR "Vector A"
+            mostrarArreglo(arrayA, cantidadElementos)
+        '2':
+            ESCRIBIR "Vector B"
+            mostrarArreglo(arrayB, cantidadElementos)
+        '3':
+            ESCRIBIR "Vector C"
+            mostrarArreglo(arrayC, cantidadElementos)
+        '4':
+            ESCRIBIR "Vector A"
+            mostrarArreglo(arrayA, cantidadElementos)
+            ESCRIBIR "Vector B"
+            mostrarArreglo(arrayB, cantidadElementos)
+            ESCRIBIR "Vector C"
+            mostrarArreglo(arrayC, cantidadElementos)
+    FIN_SEGUN
+FIN_FUNCION
+
+FUNCION manejarOpcion(opcion, arrayA, arrayB, arrayC)
+    SI cantidadElementos = 0 AND opcion = '5' HACER
+        ESCRIBIR "No hay arrays para mostrar"
+        RETORNAR
+    SINO
+        SI cantidadElementos = 0 AND opcion != '6' HACER
+            ESCRIBIR "Ingrese la cantidad de elementos: "
+            LEER cantidadElementos
+        FIN_SI
+    FIN_SI
+
+    SEGUN (opcion)
+        '1':
+            llenarAleatorio(arrayA, cantidadElementos)
+            ESCRIBIR "vectorA llenado"
+        '2':
+            llenarAleatorio(arrayA, cantidadElementos)
+            ESCRIBIR "vectorA llenado"
+        '3':
+            aplicarOperacion(opcion, arrayA, arrayB, arrayC, cantidadElementos)
+            ESCRIBIR "C = A + B"
+        '4':
+            aplicarOperacion(opcion, arrayA, arrayB, arrayC, cantidadElementos)
+            ESCRIBIR "C = A + B"
+        '5':
+            mostrarSubMenu(arrayA, arrayB, arrayC, cantidadElementos)
+        '6':
+            salir(0) # Función de un lenguaje para salir de manera instantánea de la ejecución de un programa
+    FIN_SEGUN
+FIN_FUNCION
+
+PROGRAMA_PRINCIPAL
+    LIMITE_ARREGLO <- 20
+    cantidadElementos <- 0
+
+    DIMENSION arrayA[LIMITE_ARREGLO]: entero
+    DIMENSION arrayB[LIMITE_ARREGLO]: entero
+    DIMENSION arrayC[LIMITE_ARREGLO]: entero
+
+    MIENTRAS (Verdadero)
+        mostrarMenu()
+        ESCRIBIR "Ingrese una opción: "
+        LEER opcion
+        manejarOpcion(opcion, arrayA, arrayB, arrayC)
+    FIN_MIENTRAS
+FIN PROGRAMA_PRINCIPAL

@@ -1,0 +1,57 @@
+ARRAY_LIMIT <- 10
+
+FUNCION preguntarValores(cantidad)
+    DIMENSION arreglo[ARRAY_LIMIT]: entero
+    PARA i <- 0 HASTA cantidad CON PASO 1 HACER
+        ESCRIBIR "> "
+        LEER arreglo[i]
+    FIN_PARA
+
+    RETORNAR arreglo
+FIN_FUNCION
+
+FUNCION sumarArreglos(arregloA, arregloB, cantidad)
+    DIMENSION arregloC[ARRAY_LIMIT]: entero
+    PARA i <- 0 HASTA cantidad CON PASO 1 HACER
+        arregloC[i] <- arregloA[i] + arregloB[i]
+    FIN_PARA
+
+    RETORNAR arregloC
+FIN_FUNCION
+
+FUNCION intersectarArreglos(arregloA, arregloB, cantidad)
+    DIMENSION arregloD[ARRAY_LIMIT]: entero
+    k <- 0
+    PARA i <- 1 HASTA cantidad CON PASO 1 HACER
+        PARA j <- 2 HASTA cantidad CON PASO 1 HACER
+            SI arregloA[i] = arregloB[j]
+                arregloD[k] <- arregloA[i]
+                k <- k + 1
+            FIN_SI
+        FIN_PARA
+    FIN_PARA
+FIN_FUNCION
+
+FUNCION invertArray(arregloA, cantidad)
+    DIMENSION arregloE[ARRAY_LIMIT]: entero
+
+    k <- 0
+    PARA i <- cantidad HASTA 1 CON PASO -1
+        arregloE[k] <- arregloA[i]
+        k <- k + 1
+    FIN_PARA
+FIN_FUNCION
+
+PROGRAMA_PRINCIPAL
+    HACER
+        ESCRIBIR "Ingrese la cantidad de elementos (max " + ARRAY_LIMIT + "): "
+        LEER cantidad
+    HASTA (cantidad > 0 AND cantidad <= ARRAY_LIMIT)
+    ESCRIBIR "Arreglo A"
+    DIMENSION arregloA[ARRAY_LIMIT]: entero <- preguntarValores(cantidad)
+    ESCRIBIR "Arreglo B"
+    DIMENSION arregloB[ARRAY_LIMIT]: entero <- preguntarValores(cantidad)
+    DIMENSION arregloC[ARRAY_LIMIT]: entero <- sumarArreglos(arregloA, arregloB, cantidad)
+    DIMENSION arregloD[ARRAY_LIMIT]: entero <- intersectarArreglos(arregloA, arregloB, cantidad)
+    DIMENSION arregloE[ARRAY_LIMIT]: entero <- invertArray(arregloA, cantidad)
+FIN PROGRAMA_PRINCIPAL

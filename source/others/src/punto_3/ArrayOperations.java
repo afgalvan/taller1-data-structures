@@ -24,9 +24,9 @@ public class ArrayOperations {
 
         int size;
         do {
-            System.out.printf("Ingrese el tamaño de los vectores (max %d): ", ARRAY_LIMIT);
+            System.out.printf("Ingrese la cantidad de elementos (max %d): ", ARRAY_LIMIT);
             size = scanner.nextInt();
-        } while (size > ARRAY_LIMIT || size < 0);
+        } while (size < 0 || size > ARRAY_LIMIT);
         // List<Integer> arrayA = generateNumbers(size);
         // List<Integer> arrayB = generateNumbers(size);
         System.out.println("Array A");
@@ -53,7 +53,7 @@ public class ArrayOperations {
         List<Integer> array = new ArrayList<>(ARRAY_LIMIT);
         Random random = new Random();
         for (int i = 0; i < size; i++) {
-            array.add(random.nextInt(10));
+            array.add(random.nextInt(11));
         }
         return array;
     }
@@ -116,10 +116,10 @@ public class ArrayOperations {
     }
 
     public static List<Integer> invertArray(List<Integer> arrayA) {
-        List<Integer> arrayC = new ArrayList<>(ARRAY_LIMIT);
-        for (int i = arrayA.size() - 1; i >= 0; --i) {
-            arrayC.add(arrayA.get(i));
+        List<Integer> arrayE = new ArrayList<>(ARRAY_LIMIT);
+        for (int i = arrayE.size() - 1; i >= 0; --i) {
+            arrayE.add(arrayA.get(i));
         }
-        return arrayC;
+        return arrayE;
     }
 }

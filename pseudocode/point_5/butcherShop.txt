@@ -1,0 +1,132 @@
+REGISTRO Res
+    serial: cadena
+    edad: entero
+    genero: cadena
+    peso: decimal
+FIN_REGISTRO
+
+REGISTRO Frigorifico
+    DIMENSION listaRes[100]: Res
+    DIMENSION resesObesas[100]: cadena
+FIN_REGISTRO
+
+FUNCION mostrarResesObesas(cantidadLista)
+    Si cantidadLista = 0 Hacer
+        Escribir "La vacas obesas fueron"
+    Si no
+        Escribir "La vacas obesas fueron"
+        Para i <- 1 Hasta cantidadLista Con paso 1 Hacer
+            Escribir frigorifico.resObesa[i]
+        FIN Para
+    FIN Si
+FIN FUNCION
+
+
+FUNCION clasificarRes(res)
+    Si res.peso > 40 and res.genero = "h" Hacer
+        frigorifico.resesObesas[i] <- res.serial
+        elementos <- elementos + 1
+    FIN Si
+
+    Retornar elementos
+FIN FUNCION
+
+
+FUNCION registrarRes()
+    Dimension resObesa[100]
+    cantidadObesas <- 0
+    cantidadLista <- 0
+    res Res
+    cantidad <- 0
+
+    Hacer
+        Escribir "Cuantas reces desea registrar?: "
+        leer cantidad
+
+        Si cantidad > 100 Hacer
+            Escribir "La cantidad maxima en el frigorifico es de 100."
+        FIN Si
+
+    Hasta(cantidad <= 100)
+
+    esValido <- verdadero
+    Para i <- 1 Hasta cantidad Con paso 1 Hacer
+        Hacer
+            Escribir "Ingrese el numero de serie: "
+            leer res.serial
+            esValido <- verdadero
+
+            Para i <- 1 Hasta cantidadLista Con paso 1 Hacer
+                Si res.serial = lista[i].serial Hacer
+                    Escribir "este serial ya se encuentra en uso intentelo de nuevo"
+                    esValido <- falso
+                FIN Si
+            FIN Para
+        Hasta(esValido = verdadero)
+
+        res.edad <- aleatorio de 1 Hasta 10
+        Escribir "Edad aleatoria: " + res.edad
+
+        Hacer
+            Escribir "Ingrese el sexo: "
+            leer res.genero
+
+            esValido <- res.genero = "h" or res.genero = "m"
+            Si no esValido Hacer
+                Escribir "Genero no valido"
+                Escribir "Intentelo de nuevo"
+            FIN Si
+        Hasta(esValido = verdadero)
+
+        Hacer
+            Escribir "Ingrese el peso: "
+            leer res.peso
+            esValido <- verdadero
+
+            Si res.peso <= 0 Hacer
+                Escribir "Peso no valido"
+                Escribir "Intentelo de nuevo"
+                esValido <- falso
+            FIN Si
+        Hasta(esValido = verdadero)
+
+        cantidadObesas <- clasificarRes(res, resObesa, cantidadObesas)
+
+    FIN Para
+    lista[i] <- res
+    cantidadLista <- cantidadLista + 1
+    mostrarResObesa(resObesa, cantidadObesas)
+
+FIN FUNCION
+
+FUNCION manejarOpcion()
+    ESCRIBIR "Escoga una opncion: "
+    LEER opcion
+    SEGUN
+        '1':
+            HACER
+                registrarRes()
+                ESCRIBIR "Desea registrar otra res (s / otra tecla): "
+                LEER registrarDeNuevo
+            HASTA (registrarDeNuevo != 's')
+        '2':
+            mostrarResesObesas()
+        '0':
+            salir(0)
+    FIN_SEGUN
+FIN_FUNCION
+
+FUNCION mostrarMenu()
+    ESCRIBIR "REGISTRO DE RESES"
+    ESCRIBIR "================="
+    ESCRIBIR "1. Registrar nueva res."
+    ESCRIBIR "2. Registrar nueva res."
+    ESCRIBIR "0. Salir."
+FIN_FUNCION
+
+PROGRAMA_PRINCIPAL
+    Frigorifico frigorifico
+    HACER
+        mostrarMenu()
+    HASTA (manejarOpcion())
+FIN_PROGRAMA_PRINCIPAL

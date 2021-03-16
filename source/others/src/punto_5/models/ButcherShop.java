@@ -21,17 +21,16 @@ public class ButcherShop {
         this.beefList.add(beef);
     }
 
-    /* public List<String> getFatBeefList() {
-        fatBeefList = beefList.stream()
-            .filter(b -> b.getWeight() > 40 && b.getGenre() == 'H')
-            .map(Beef::getSerialNumber)
-            .collect(Collectors.toList());
-        return fatBeefList;
-    }*/
+    /*
+     * public List<String> getFatBeefList() { fatBeefList = beefList.stream()
+     * .filter(b -> b.getWeight() > 40 && b.getGenre() == 'H')
+     * .map(Beef::getSerialNumber) .collect(Collectors.toList()); return
+     * fatBeefList; }
+     */
 
     public List<String> getFatBeefList() {
         fatBeefList = new ArrayList<>(10);
-        for (Beef beef: beefList) {
+        for (Beef beef : beefList) {
             if (beef.getWeight() > 40 && beef.getGenre() == 'H') {
                 fatBeefList.add(beef.getSerialNumber());
             }

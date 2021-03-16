@@ -50,8 +50,8 @@ public class ArrayMenu {
         System.out.println("\t   MENU");
         System.out.println("1. Llenar el vector A.");
         System.out.println("2. Llenar el vector B.");
-        System.out.println("3. Realizar C=A+B.");
-        System.out.println("4. Realizar C=A-B.");
+        System.out.println("3. Realizar C = A + B.");
+        System.out.println("4. Realizar C = B - A.");
         System.out.println("5. Mostrar vector.");
         System.out.println("6. Salir.");
     }
@@ -89,7 +89,7 @@ public class ArrayMenu {
                 Butcher.keyPause();
                 break;
             case '5':
-                displayMenu(arrayA, arrayB, arrayC);
+                displaySubMenu(arrayA, arrayB, arrayC);
                 break;
             case '6':
                 System.exit(0);
@@ -116,7 +116,7 @@ public class ArrayMenu {
         }
     }
 
-    public static void displayMenu(List<Integer> arrayA, List<Integer> arrayB,
+    public static void displaySubMenu(List<Integer> arrayA, List<Integer> arrayB,
                                    List<Integer> arrayC) {
         char choice;
         System.out.print("\033\143");
